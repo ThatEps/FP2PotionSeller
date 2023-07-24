@@ -4,7 +4,7 @@ BepInEx plugin for Freedom Planet 2 that adds 18 new items, new difficulty setti
 ## Credits
 Eps - design and programming.  
 23Lief - spritework.  
-Audio clips used from [GDC Game Audi Bundles](https://sonniss.com/gameaudiogdc).
+Audio clips used from [GDC Game Audio Bundles](https://sonniss.com/gameaudiogdc).
 
 ## Install:
 [Use FP2 Mod Manager](https://gamebanana.com/tools/10870).
