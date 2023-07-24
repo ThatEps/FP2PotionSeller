@@ -2,8 +2,8 @@
 BepInEx plugin for Freedom Planet 2 that adds 18 new items, new difficulty settings, and makes baseline balance changes.
 
 ## Credits
-Eps - design and programming.
-23Lief - spritework.
+Eps - design and programming.  
+23Lief - spritework.  
 Audio clips used from [GDC Game Audi Bundles](https://sonniss.com/gameaudiogdc).
 
 ## Install:
