@@ -24,11 +24,13 @@
             harmony.PatchAll(typeof(FPPlayerPatch_ApplyGravityForce));
             harmony.PatchAll(typeof(FPPlayerPatch_GetAttackModifier));
             harmony.PatchAll(typeof(FPPlayerPatch_Revive));
+            harmony.PatchAll(typeof(FPPlayerPatch_Action_Carol_RemoveBike));
             harmony.PatchAll(typeof(FPPlayerPatch_Action_Hurt));
             harmony.PatchAll(typeof(FPPlayerPatch_Action_ShieldHurt));
             harmony.PatchAll(typeof(FPPlayerPatch_Action_ShadowGuard));
             harmony.PatchAll(typeof(FPPlayerPatch_State_Guard));
             harmony.PatchAll(typeof(FPPlayerPatch_State_KO));
+            harmony.PatchAll(typeof(FPPlayerPatch_State_Carol_JumpDiscWarp));
         }
     }
 
@@ -289,6 +291,25 @@
                 }
                 __instance.health = Mathf.Min(__instance.health + extraHealth, __instance.healthMax);
             }
+        }
+    }
+
+    /// <summary>
+    /// Disables Carol's child sprite's (tail's) renderer when she dismounts the bike with the Invisibility Cloak equipped.
+    /// </summary>
+    [HarmonyPatch(typeof(FPPlayer), nameof(FPPlayer.Action_Carol_RemoveBike))]
+    class FPPlayerPatch_Action_Carol_RemoveBike
+    {
+        static void Prefix(FPPlayer __instance, out FPCharacterID __state)
+        {
+            __state = __instance.characterID;
+        }
+
+        static void Postfix(FPPlayer __instance, FPCharacterID __state)
+        {
+            if (__instance.hasSwapCharacter && (__state == FPCharacterID.BIKECAROL) && (__instance.characterID != FPCharacterID.BIKECAROL) &&
+                (__instance.childSprite != null) && __instance.IsPowerupActive((FPPowerup)PotionSellerUtils.InvisibilityCloakIndex))
+                __instance.childSprite.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 
@@ -594,6 +615,25 @@
                 PotionSellerUtils.ExplosiveFinaleFlags[__instance] = true;
                 FPStage.CreateStageObject(BigExplosion.classID, __instance.position.x, __instance.position.y);
             }
+        }
+    }
+
+    /// <summary>
+    /// Disables Carol's child sprite's (tail's) renderer when she warps to the Jump Disk with the bike and Invisibility Cloak equipped.
+    /// </summary>
+    [HarmonyPatch(typeof(FPPlayer), nameof(FPPlayer.State_Carol_JumpDiscWarp))]
+    class FPPlayerPatch_State_Carol_JumpDiscWarp
+    {
+        static void Prefix(bool ___useSpecialItem, out bool __state)
+        {
+            __state = ___useSpecialItem;
+        }
+
+        static void Postfix(FPPlayer __instance, bool ___useSpecialItem, bool __state)
+        {
+            if (__state && !___useSpecialItem && __instance.hasSwapCharacter && (__instance.genericTimer <= 0f) &&
+                (__instance.childSprite != null) && __instance.IsPowerupActive((FPPowerup)PotionSellerUtils.InvisibilityCloakIndex))
+                __instance.childSprite.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 }
