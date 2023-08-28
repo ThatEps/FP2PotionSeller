@@ -612,7 +612,7 @@
                     {
                         state.FuseLit = true;
                         SetMaterial(3);
-                        FPAudio.PlaySfx(BeepSfx);
+                        FPAudio.PlayHitSfx(BeepSfx);
                     }
                     continue;
                 }
@@ -625,7 +625,7 @@
                 {
                     SetMaterial(0);
                     FPCamera.stageCamera.screenShake = Mathf.Max(FPCamera.stageCamera.screenShake, 15f);
-                    FPAudio.PlaySfx(BombExplosionSfx[UnityEngine.Random.Range(0, 2)]);
+                    FPAudio.PlayStaticSfx(BombExplosionSfx[UnityEngine.Random.Range(0, 2)]);
                     FPStage.CreateStageObject(BigExplosion.classID, state.Enemy.position.x, state.Enemy.position.y);
                     state.Ignore = true;
                     continue;
@@ -636,7 +636,7 @@
                     {
                         state.FlashChange = 0;
                         SetMaterial(3);
-                        FPAudio.PlaySfx(BeepLowSfx);
+                        FPAudio.PlayHitSfx(BeepLowSfx);
                     }
                     else
                     {

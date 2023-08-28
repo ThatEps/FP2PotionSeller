@@ -469,7 +469,7 @@
         }
         
         /// <summary>
-        /// Counts damage towards the Ice Cronw if it's equipped.
+        /// Counts damage towards the Ice Crown if it's equipped.
         /// Changes the element of the shield to the element of the damage it took if the Guardian Charm is equipped.
         /// </summary>
         static void Postfix(FPPlayer __instance, ref Vector2 __state)
