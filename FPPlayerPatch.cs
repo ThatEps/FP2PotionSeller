@@ -222,7 +222,7 @@
         static IEnumerable<MethodBase> TargetMethods()
         {
             yield return typeof(FPPlayer).GetMethod("ProcessInputControl", BindingFlags.NonPublic | BindingFlags.Instance);
-            yield return typeof(FPPlayer).GetMethod("ProcessRewired");
+            yield return typeof(FPPlayer).GetMethod("ProcessRewired", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
         static void Postfix(FPPlayer __instance)

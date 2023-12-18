@@ -6,11 +6,11 @@
     using System.IO;
     using System.Reflection;
 
-    [BepInPlugin("com.eps.plugin.fp2.potion-seller", "PotionSeller", "1.0.2")]
+    [BepInPlugin("com.eps.plugin.fp2.potion-seller", "PotionSeller", "1.0.3")]
     [BepInProcess("FP2.exe")]
     public class Plugin : BaseUnityPlugin
     {
-        public const string Version = "1.0.2";
+        public const string Version = "1.0.3";
 
         private void Awake()
         {

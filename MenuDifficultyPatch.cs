@@ -74,11 +74,11 @@
 
             // --------------------------------------------------------- //
 
-            GameObject chilloutOption = DuplicateAndOffset("OptionEasy", "OptionChillout", 0);
+            GameObject chilloutOption = DuplicateAndOffset("OptionGroupGeneral/OptionEasy", "OptionChillout", -32);
             chilloutOption.GetComponentInChildren<TextMesh>().text = "Chillout";
             MenuOption chilloutMenuOption = chilloutOption.GetComponent<MenuOption>();
 
-            GameObject insanityOption = DuplicateAndOffset("OptionHard", "OptionInsanity", 64);
+            GameObject insanityOption = DuplicateAndOffset("OptionGroupGeneral/OptionHard", "OptionInsanity", 32);
             insanityOption.GetComponentInChildren<TextMesh>().text = "Insanity";
             MenuOption insanityMenuOption = insanityOption.GetComponent<MenuOption>();
             insanityMenuOption.normalSprite = PotionSellerUtils.InsanityDifficultySprite;
@@ -87,11 +87,11 @@
 
             __instance.menuOptions = new MenuOption[6];
             __instance.menuOptions[0] = chilloutMenuOption;
-            __instance.menuOptions[1] = OffsetExistingOption("OptionEasy", 32);
-            __instance.menuOptions[2] = OffsetExistingOption("OptionNormal", 32);
-            __instance.menuOptions[3] = OffsetExistingOption("OptionHard", 32);
+            __instance.menuOptions[1] = OffsetExistingOption("OptionGroupGeneral/OptionEasy", 0);
+            __instance.menuOptions[2] = OffsetExistingOption("OptionGroupGeneral/OptionNormal", 0);
+            __instance.menuOptions[3] = OffsetExistingOption("OptionGroupGeneral/OptionHard", 0);
             __instance.menuOptions[4] = insanityMenuOption;
-            __instance.menuOptions[5] = OffsetExistingOption("OptionReturn", 32);
+            __instance.menuOptions[5] = OffsetExistingOption("OptionGroupGeneral/OptionGroupReturn/OptionReturn", 32);
 
             __instance.menuOptions[1].normalSprite = PotionSellerUtils.BeginnerDifficultySprite;
             __instance.menuOptions[1].selectedSprite = PotionSellerUtils.BeginnerDifficultyOnSprite;
@@ -99,15 +99,15 @@
             __instance.menuOptions[2].normalSprite = PotionSellerUtils.NormalDifficultySprite;
             __instance.menuOptions[2].selectedSprite = PotionSellerUtils.NormalDifficultyOnSprite;
             __instance.menuOptions[2].GetComponent<SpriteRenderer>().sprite = PotionSellerUtils.NormalDifficultyOnSprite;
-            __instance.transform.Find("OptionCustom").gameObject.SetActive(false);
+            __instance.transform.Find("OptionGroupGeneral/OptionCustom").gameObject.SetActive(false);
 
             // --------------------------------------------------------- //
 
-            GameObject customSlot3 = DuplicateAndOffset("OptionCustomSlot2", "OptionCustomSlot3", 24);
-            GameObject customSlot4 = DuplicateAndOffset("OptionCustomSlot2", "OptionCustomSlot4", 64);
-            OffsetExistingOption("OptionCustomSlot1", -16);
-            OffsetExistingOption("OptionCustomSlot2", -16);
-            Offset(__instance.potionEffects.transform, 64);
+            GameObject customSlot3 = DuplicateAndOffset("OptionGroupGeneral/OptionGroupRightside/OptionCustomSlot2", "OptionCustomSlot3", 8);
+            GameObject customSlot4 = DuplicateAndOffset("OptionGroupGeneral/OptionGroupRightside/OptionCustomSlot2", "OptionCustomSlot4", 48);
+            OffsetExistingOption("OptionGroupGeneral/OptionGroupRightside/OptionCustomSlot1", -32);
+            OffsetExistingOption("OptionGroupGeneral/OptionGroupRightside/OptionCustomSlot2", -32);
+            Offset(__instance.potionEffects.transform, 48);
 
             __instance.itemIcon = new FPHudDigit[4]
             {
@@ -128,9 +128,10 @@
 
             GameObject DuplicateAndOffset(string nameOfOriginal, string name, int offset)
             {
-                GameObject gobject = UnityEngine.Object.Instantiate(__instance.transform.Find(nameOfOriginal).gameObject);
+                Transform original = __instance.transform.Find(nameOfOriginal);
+                GameObject gobject = UnityEngine.Object.Instantiate(original.gameObject);
                 gobject.name = name;
-                gobject.transform.parent = __instance.transform;
+                gobject.transform.parent = original.parent;
                 Offset(gobject.transform, offset);
                 return gobject;
             }
